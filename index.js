@@ -21,7 +21,6 @@ const connectDB = async () => {
     db = client.db('lazashops');
     const punjabiCollection = db.collection('punjabi');
 
-
     app.get('/api/punjabi', async (req, res) => {
       try {
         const punjabiData = await punjabiCollection.find().toArray();
