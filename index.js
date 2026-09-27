@@ -20,6 +20,7 @@ const connectDB = async () => {
     await client.connect();
     db = client.db('lazashops');
     const punjabiCollection = db.collection('punjabi');
+    const topCropCollection = db.collection('topCrop');
 
     app.get('/api/punjabi', async (req, res) => {
       try {
@@ -27,6 +28,16 @@ const connectDB = async () => {
         res.json(punjabiData);
       } catch (error) {
         console.error('Error fetching punjabi data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
+
+    app.get('/api/topCrop', async (req, res) => {
+      try {
+        const topCropData = await topCropCollection.find().toArray();
+        res.json(topCropData);
+      } catch (error) {
+        console.error('Error fetching top crop data:', error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
     });
